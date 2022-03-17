@@ -58,6 +58,39 @@ a {
 .page-wrapper {
   padding: 70px;
 
+  .login-notice {
+    padding-top: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    .notice {
+      padding: 30px 50px;
+      background-color: rgba(238, 155, 0, 0.103);
+      border-radius: 15px;
+      color: #07a;
+      font-size: 15pt;
+      font-weight: 700;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .link-block {
+        padding: 10px 0;
+
+        .register {
+          color: #949494;
+        }
+
+        .login {
+          color: $secondary;
+        }
+      }
+    }
+  }
+
   .reminder {
     color: rgb(0, 170, 71);
     font-size: 12px;

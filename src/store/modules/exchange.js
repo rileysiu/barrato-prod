@@ -10,7 +10,7 @@ import {
 import slugify from "slugify";
 
 const initPagination = () => ({
-  itemCount: 3,
+  itemCount: 9,
   lastItem: null,
   paginationHistory: [],
   isFetchingData: false

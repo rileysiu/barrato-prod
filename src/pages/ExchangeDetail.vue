@@ -1,83 +1,104 @@
 <template>
-  <div
-    v-if="exchange && exchange.slug"
-    class="page-wrapper">
-    <section
-      class="hero is-black">
-      <div class="hero-body">
-        <div class="hero-img"></div>
-        <div class="container">
-          <div class="columns">
-            <div class="column is-9">
-              <h1 class="title">
-                {{exchange.title}}
-              </h1>
-              <h2 class="subtitle">
-                {{exchange.type}}
-              </h2>
-              <!-- Exchange User Start -->
-              <div v-if="!!exchangeUser" class="user-tile">
-                <div class="user-tile-image">
-                  <figure class="image is-64x64">
-                    <img
-                      class="is-rounded"
-                      :src="exchangeUser.avatar"
-                    >
-                  </figure>
-                </div>
-                <div class="user-tile-author center">
-                  <h3 class="user-tile-author-name">by {{exchangeUser.username}}</h3>
-                </div>
-              </div>
-              <!-- Exchange User End -->
-            </div>
-            <div class="column is-3">
-              <div class="column-right">
-                <div class="card ">
-                  <div class="card-image">
-                    <figure class="image is-4by2">
-                      <!-- Exchange Image -->
+  <div v-if="!isAuth" class="page-wrapper">
+    <div class="login-notice animate__animated animate__fadeInDown">
+      <div class="notice">
+        <p>Please Log in to discover exchanges</p>
+        <div class="link-block">
+          <router-link 
+            class="register"
+            to="/register">
+            Register
+          </router-link> &nbsp;·&nbsp;
+          <router-link 
+            class="login"
+            to="/login">
+            Log In
+          </router-link>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div v-else>
+    <div
+      v-if="exchange && exchange.slug"
+      class="page-wrapper">
+      <section
+        class="hero is-black">
+        <div class="hero-body">
+          <div class="hero-img"></div>
+          <div class="container">
+            <div class="columns">
+              <div class="column is-9">
+                <h1 class="title">
+                  {{exchange.title}}
+                </h1>
+                <h2 class="subtitle">
+                  {{exchange.type}}
+                </h2>
+                <!-- Exchange User Start -->
+                <div v-if="!!exchangeUser" class="user-tile">
+                  <div class="user-tile-image">
+                    <figure class="image is-64x64">
                       <img
-                        :src="exchange.image"
-                        alt="Placeholder image"
+                        class="is-rounded"
+                        :src="exchangeUser.avatar"
                       >
                     </figure>
                   </div>
-                  <div class="card-content">
-                    <div class="content m-b-sm">
-                      <div class="media-content">
-                        <span class="title is-2">${{exchange.price}}
-                        </span>
-                      </div>
+                  <div class="user-tile-author center">
+                    <h3 class="user-tile-author-name">by {{exchangeUser.username}}</h3>
+                  </div>
+                </div>
+                <!-- Exchange User End -->
+              </div>
+              <div class="column is-3">
+                <div class="column-right">
+                  <div class="card ">
+                    <div class="card-image">
+                      <figure class="image is-4by2">
+                        <!-- Exchange Image -->
+                        <img
+                          :src="exchange.image"
+                          alt="Placeholder image"
+                        >
+                      </figure>
                     </div>
-                    <exchange-deal-modal
-                      v-if="canCreateExchange"
-                      :exchange="exchange"
-                      :availableExchanges="userExchanges"
-                    />
-                    <button
-                     v-if="isExchangeOwner"
-                     disabled
-                     class="button is-fullwidth is-large is-danger is-outlined"
-                    >
-                      Yours Exchange
-                    </button>
-                    <router-link
-                      v-if="!isAuth"
-                      to="/login"
-                      class="button is-fullwidth is-large is-success is-outlined"
-                    >
-                      Login to make an offer
-                    </router-link>
-                    <div class="content">
-                      <ul class="m-t-none">
-                        <li>
-                          Get item today
-                        </li>
-                        <li>
-                          Learn more
-                        </li>
-                      </ul>
+                    <div class="card-content">
+                      <div class="content m-b-sm">
+                        <div class="media-content">
+                          <span class="title is-2">${{exchange.price}}
+                          </span>
+                        </div>
+                      </div>
+                      <exchange-deal-modal
+                        v-if="canCreateExchange"
+                        :exchange="exchange"
+                        :availableExchanges="userExchanges"
+                      />
+                      <button
+                      v-if="isExchangeOwner"
+                      disabled
+                      class="button is-fullwidth is-large is-danger is-outlined"
+                      >
+                        Yours Exchange
+                      </button>
+                      <router-link
+                        v-if="!isAuth"
+                        to="/login"
+                        class="button is-fullwidth is-large is-success is-outlined"
+                      >
+                        Login to make an offer
+                      </router-link>
+                      <div class="content">
+                        <ul class="m-t-none">
+                          <li>
+                            Get item today
+                          </li>
+                          <li>
+                            Learn more
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -85,25 +106,25 @@
             </div>
           </div>
         </div>
-      </div>
-    </section>
-    <!-- HEADER -->
-    <div class="container">
-      <div class="columns">
-        <div class="column is-9">
-          <div class="section">
-            <div class="more-details">
-              <div class="more-details-title">
-                Details
+      </section>
+      <!-- HEADER -->
+      <div class="container">
+        <div class="columns">
+          <div class="column is-9">
+            <div class="section">
+              <div class="more-details">
+                <div class="more-details-title">
+                  Details
+                </div>
+                <div class="more-details-item">Country: {{exchange.country}}</div>
+                <div class="more-details-item">City: {{exchange.city}}</div>
               </div>
-              <div class="more-details-item">Country: {{exchange.country}}</div>
-              <div class="more-details-item">City: {{exchange.city}}</div>
             </div>
-          </div>
-          <div class="section product-description p-t-none">
-            <div class="product-description-title">Exchange Info</div>
-            <div class="product-description-details">
-              <p>{{exchange.description}}</p>
+            <div class="section product-description p-t-none">
+              <div class="product-description-title">Exchange Info</div>
+              <div class="product-description-details">
+                <p>{{exchange.description}}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -112,6 +133,7 @@
   </div>
 </template>
 <script>
+import 'animate.css'
 import ExchangeDealModal from "../components/ExchangeDealModal.vue";
 export default {
   components: {

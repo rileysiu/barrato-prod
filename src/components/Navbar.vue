@@ -7,9 +7,11 @@
     >
       <div class="container">
         <div class="navbar-brand">
-          <a class="navbar-item has-text-white is-size-2 has-text-weight-bold" href="#">
+          <router-link
+            to="/" 
+            class="navbar-item has-text-white is-size-2 has-text-weight-bold" href="#">
             {{title}}
-          </a>
+          </router-link>
           <span
             @click="isMenuOpen = !isMenuOpen"
             :class="{'is-active': isMenuOpen}"
